@@ -2,7 +2,7 @@ import { DataTypes } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
 import { sequelize } from '../setupDatabase.js';
 
-const User = sequelize.define('User', {
+export const UserModel = sequelize.define('User', {
   id: {
     type: DataTypes.UUID,
     defaultValue: () => uuidv4(),
@@ -29,4 +29,3 @@ const User = sequelize.define('User', {
   timestamps: true,
 });
 
-module.exports = User;
