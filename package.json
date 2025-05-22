@@ -4,11 +4,15 @@
   "description": "",
   "main": "app.js",
   "scripts": {
+    "start": "pm2 start src/app.js --name payment-api --watch",
+    "stop": "pm2 stop payment-api",
+    "restart": "pm2 restart payment-api",
     "dev": "nodemon src/app.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --check .",
-    "format:fix": "prettier --write ."
+    "format:fix": "prettier --write .",
+    "test": "jest"
   },
   "keywords": [],
   "type": "module",
