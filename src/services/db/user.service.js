@@ -1,10 +1,13 @@
-import { BadRequestError } from '../../errors/error-handler';
-import { UserModel } from '../../models/userModel';
+import { BadRequestError } from '../../errors/error-handler.js';
+import { UserModel } from '../../models/userModel.js';
 
 class UserService {
   createUser = async (name, email) => {
     try {
-      const user = await UserModel.create({ name, email });
+      let user = await this.userExist(email);
+      if (!user) {
+        user = await UserModel.create({ name, email });
+      }
 
       return user;
     } catch (error) {
@@ -13,16 +16,9 @@ class UserService {
   };
 
   userExist = async (email) => {
-    try {
-      const response = await UserModel.findOne({ where: { email } });
+    const user = await UserModel.findOne({ where: { email } });
 
-      if (response) {
-        return true;
-      }
-      return false;
-    } catch (error) {
-      throw new BadRequestError(error.message);
-    }
+    return user
   };
 }
 

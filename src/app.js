@@ -22,11 +22,13 @@ app.use(
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   })
 );
+
+app.use('/api/v1/webhook', express.raw({ type: 'application/json' }), handleStripeWebhook);
+
 app.use(compression());
 app.use(json({ limit: '200mb' }));
 app.use(urlencoded({ extended: true, limit: '200mb' }));
 
-app.use('/api/v1/webhook', express.raw({ type: 'application/json' }), handleStripeWebhook);
 app.use('/api/v1/payments', paymentRoutes);
 
 app.use((error, _req, res, next) => {

@@ -10,6 +10,7 @@ class Config {
     this.CLIENT_URL = process.env.CLIENT_URL || '';
     this.SERVER_PORT = process.env.SERVER_PORT || 3000;
     this.STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY || '';
+    this.STRIPE_WEBHOOK_SECRET = process.env.STRIPE_WEBHOOK_SECRET || '';
   }
 }
 

@@ -1,11 +1,13 @@
 import express from 'express';
-import { getPayments, makePayment } from '../controllers/payment.controller.js';
+import { getTransactions, getTransaction, getStripeTransaction,getStripeTransactions, makePayment } from '../controllers/payment.controller.js';
 import { validatePayment } from '../validators/validate-payment.js';
 
 const router = express.Router();
 
-router.post('/pay', validatePayment, makePayment);
-router.get('/', getPayments);
-router.get('/:transactionId', getPayments);
+router.post('/', validatePayment, makePayment);
+router.get('/stripe', getStripeTransactions);
+router.get('/stripe/:transactionId', getStripeTransaction);
+router.get('/', getTransactions);
+router.get('/:id', getTransaction);
 
 export default router;

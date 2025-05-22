@@ -1,7 +1,7 @@
 import { DataTypes } from 'sequelize';
 import { v4 as uuidv4 } from 'uuid';
 import { sequelize } from '../setupDatabase.js';
-import UserModel from './userModel.js';
+import {UserModel} from './userModel.js';
 
 export const PaymentModel = sequelize.define(
   'Payment',
@@ -27,6 +27,38 @@ export const PaymentModel = sequelize.define(
         notNull: { msg: 'Amount is required' },
         isFloat: { msg: 'Amount must be a number' },
         min: { args: [0.01], msg: 'Amount must be greater than 0' },
+      },
+    },
+    provider: {
+      type: DataTypes.ENUM('stripe'),
+      allowNull: false,
+      validate: {
+        isIn: {
+          args: [['stripe']],
+          msg: 'Provider must be one of: stripe,',
+        },
+      },
+    },
+    sessionId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Session ID is required' },
+        len: {
+          args: [1, 255],
+          msg: 'Session ID must be between 1 and 255 characters',
+        },
+      },
+    },
+    customerId: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notNull: { msg: 'Customer ID is required' },
+        len: {
+          args: [1, 255],
+          msg: 'Customer ID must be between 1 and 255 characters',
+        },
       },
     },
     status: {

@@ -1,7 +1,7 @@
 import { Sequelize } from 'sequelize';
 import { config } from './config.js';
 
-const sequelize = new Sequelize(config.POSTGRES_DB_URL, {
+export const sequelize = new Sequelize(config.POSTGRES_DB_URL, {
   dialect: 'postgres',
   logging: false,
   dialectOptions: {
