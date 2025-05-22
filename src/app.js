@@ -11,6 +11,7 @@ import paymentRoutes from './routes/payment.routes.js';
 import { CustomError } from './errors/error-handler.js';
 import { ValidationError } from './errors/validation-error.js';
 import { handleStripeWebhook } from './webhooks/stripe-payments.js';
+import { rateLimiter } from './services/rate-limit/express-rate-limiter.js';
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.use(compression());
 app.use(json({ limit: '200mb' }));
 app.use(urlencoded({ extended: true, limit: '200mb' }));
 
+app.use(rateLimiter.applyLimiter());
 app.use('/api/v1/payments', paymentRoutes);
 app.get('/', (req, res) => {
   res.status(200).json({
