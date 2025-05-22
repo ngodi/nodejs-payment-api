@@ -13,9 +13,31 @@ export const makePayment = async (req, res) => {
 
   try {
     const { name, email, amount } = req.body;
-    const response = await stripeService.handlePayment(name, email, amount);
+    const url = await stripeService.createCheckoutSession(name, email, amount);
 
-    return res.status(HTTP_STATUS.OK).json(response);
+    return res.status(HTTP_STATUS.OK).json({message: "Payment session created successfully", url});
+  } catch (error) {
+    throw new BadRequestError(error.message);
+  }
+}
+
+export const getPayment = async (req, res) => {
+  try {
+    const { transactionId } = req.params;
+    const transaction = await stripeService.getCheckoutSession(transactionId);
+
+    return res.status(HTTP_STATUS.OK).json({ message: "Transaction retrieved successfully", transaction });
+  } catch (error) {
+    throw new BadRequestError(error.message);
+  }
+}
+
+export const getPayments = async (req, res) => {
+  try {
+    const { email } = req.query;
+    const transactions = await stripeService.getCheckoutSessionsByEmail(email);
+
+    return res.status(HTTP_STATUS.OK).json({ message: "Transactions retrieved successfully", transactions});
   } catch (error) {
     throw new BadRequestError(error.message);
   }

@@ -1,9 +1,9 @@
 import { DataTypes }from 'sequelize';
 import { v4 as uuidv4 }from 'uuid';
 import { sequelize } from '../setupDatabase.js';
-import User from './userModel.js'; 
+import UserModel from './userModel.js'; 
 
-const Payment = sequelize.define('Payment', {
+export const PaymentModel = sequelize.define('Payment', {
   id: {
     type: DataTypes.UUID,
     defaultValue: () => uuidv4(),
@@ -42,7 +42,6 @@ const Payment = sequelize.define('Payment', {
   timestamps: true,
 });
 
-User.hasMany(Payment, { foreignKey: 'userId' });
-Payment.belongsTo(User, { foreignKey: 'userId' });
+UserModel.hasMany(PaymentModel, { foreignKey: 'userId' });
+PaymentModel.belongsTo(UserModel, { foreignKey: 'userId' });
 
-module.exports = Payment;
