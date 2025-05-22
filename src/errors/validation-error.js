@@ -17,10 +17,11 @@ export class ValidationError extends Error {
       message: this.message,
       status: this.status,
       statusCode: this.statusCode,
-      errors: this.errors?.array?.().map((error) => ({
-        field: error.path,
-        message: error.msg,
-      })) || [],
+      errors:
+        this.errors?.array?.().map((error) => ({
+          field: error.path,
+          message: error.msg,
+        })) || [],
     };
   }
 }

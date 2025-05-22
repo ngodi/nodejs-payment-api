@@ -19,7 +19,7 @@ app.use(helmet());
 app.use(
   cors({
     origin: config.CLIENT_URL,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   })
 );
 app.use(compression());
@@ -41,7 +41,6 @@ app.use((error, _req, res, next) => {
 });
 
 app.listen(config.SERVER_PORT, () => {
-   databaseConnection();
+  databaseConnection();
   console.log(`Server is running on port ${config.SERVER_PORT}`);
-}
-);
+});

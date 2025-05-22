@@ -1,12 +1,12 @@
 import { Sequelize } from 'sequelize';
 import { config } from './config.js';
 
-const sequelize = new Sequelize(config.POSTGRES_DB_URL,  {
+const sequelize = new Sequelize(config.POSTGRES_DB_URL, {
   dialect: 'postgres',
   logging: false,
   dialectOptions: {
-    multipleStatements: true
-  }
+    multipleStatements: true,
+  },
 });
 
 export const databaseConnection = async () => {
@@ -17,4 +17,4 @@ export const databaseConnection = async () => {
   } catch (error) {
     console.log('error', 'databaseConnection() method error:', error);
   }
-}
+};

@@ -30,3 +30,4 @@ A simple Node.js REST API for accepting and tracking payments.
 ```bash
 git clone https://github.com/your-username/payment-api.git
 cd payment-api
+```

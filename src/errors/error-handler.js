@@ -9,7 +9,7 @@ export class CustomError extends Error {
     return {
       message: this.message,
       status: this.status,
-      statusCode: this.statusCode
+      statusCode: this.statusCode,
     };
   }
 }
