@@ -4,7 +4,7 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "pm2 start src/app.js --name payment-api --watch",
+    "start": "node src/app.js",
     "stop": "pm2 stop payment-api",
     "restart": "pm2 restart payment-api",
     "dev": "nodemon src/app.js",
