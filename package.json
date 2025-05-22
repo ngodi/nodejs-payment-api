@@ -16,6 +16,9 @@
   },
   "keywords": [],
   "type": "module",
+  "jest": {
+  "transform": {}
+},
   "author": "",
   "license": "ISC",
   "devDependencies": {
