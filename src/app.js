@@ -30,6 +30,12 @@ app.use(json({ limit: '200mb' }));
 app.use(urlencoded({ extended: true, limit: '200mb' }));
 
 app.use('/api/v1/payments', paymentRoutes);
+app.get('/', (req, res) => {
+  res.status(200).json({
+    status: 'success',
+    message: 'Welcome to the payment service',
+  });
+});
 
 app.use((error, _req, res, next) => {
   if (error instanceof CustomError) {
