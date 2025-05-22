@@ -34,8 +34,6 @@ jobs:
         NODE_ENV: ${{ secrets.NODE_ENV }}
         CLIENT_URL: ${{ secrets.CLIENT_URL }}
         SERVER_PORT: ${{ secrets.SERVER_PORT }}
-        STRIPE_SECRET_KEY: ${{ secrets.STRIPE_SECRET_KEY }}
-        STRIPE_WEBHOOK_SECRET: ${{ secrets.STRIPE_WEBHOOK_SECRET }}
       run: npm test
 
   deploy:
