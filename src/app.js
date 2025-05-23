@@ -13,7 +13,7 @@ import { ValidationError } from './errors/validation-error.js';
 import { handleStripeWebhook } from './webhooks/stripe-payments.js';
 import { rateLimiter } from './services/rate-limit/express-rate-limiter.js';
 
-const app = express();
+export const app = express();
 
 app.use(hpp());
 app.use(helmet());
@@ -40,15 +40,13 @@ app.get('/', (req, res) => {
 });
 
 app.use((error, _req, res, next) => {
-  if (error instanceof CustomError) {
+  if (error instanceof CustomError || error instanceof ValidationError) {
     return res.status(error.statusCode).json(error.serializeErrors());
   }
 
-  if (error instanceof ValidationError) {
-    return res.status(error.statusCode).json(error.serializeErrors());
-  }
   next();
 });
+
 
 app.listen(config.SERVER_PORT, () => {
   databaseConnection();
