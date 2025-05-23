@@ -24,7 +24,7 @@ export const makePayment = async (req, res) => {
       .status(HTTP_STATUS.OK)
       .json({ message: 'Payment session created successfully', url });
   } catch (error) {
-    throw new BadRequestError(error.message);
+    throw new BadRequestError(`${error.message}`);
   }
 };
 

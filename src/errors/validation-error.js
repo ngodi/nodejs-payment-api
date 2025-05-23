@@ -6,10 +6,7 @@ export class ValidationError extends Error {
 
   constructor(message, errors) {
     super(message);
-    this.name = this.constructor.name;
-    this.message = message;
     this.errors = errors;
-    Error.captureStackTrace(this, this.constructor);
   }
 
   serializeErrors() {

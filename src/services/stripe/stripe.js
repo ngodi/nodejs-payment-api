@@ -34,13 +34,12 @@ class StripeService {
         ],
         customer: customer.id,
         mode: 'payment',
-        success_url: `${config.CLIENT_URL}?success=true`,
-        cancel_url: `${config.CLIENT_URL}?success=false`,
+        success_url: config.CLIENT_URL,
+        cancel_url: config.CLIENT_URL,
       });
-      
-      return {url: session.url, sessionId: session.id, customerId: customer.id, provider: 'stripe'};
+     return {url: session.url, sessionId: session.id, customerId: customer.id, provider: 'stripe'};
     } catch (error) {
-      throw new BadRequestError(error.message);
+      throw new BadRequestError(`${error.message}`);
     }
   };
 
