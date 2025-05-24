@@ -92,11 +92,12 @@ npm test
 
 ## 🌐 API Endpoints
 
-| Method | Endpoint                  | Description                                    |
-| ------ | ------------------------- | ---------------------------------------------- |
-| POST   | `/api/v1/payments`        | Initiate a payment (`name`, `email`, `amount`) |
-| GET    | `/api/v1/payments/:id`    | Get payment transaction by session ID          |
-| GET    | `/api/v1/payments?email=` | Get all transactions by user email             |
+| Method | Endpoint                       | Description                                       |
+|--------|--------------------------------|---------------------------------------------------|
+| POST   | `/api/v1/payments`             | Initiate a payment (`name`, `email`, `amount`)    |
+| GET    | `/api/v1/payments/:id`         | Get payment transaction by session ID             |
+| GET    | `/api/v1/payments?email=`      | Get all transactions by user email                |
+| GET    | `/api/v1/payments/stripe/:id`  | Get payment details directly from Stripe by ID    |
 
 ---
 

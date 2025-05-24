@@ -1,6 +1,6 @@
 import Stripe from 'stripe';
 import { config } from '../../config.js';
-import { BadRequestError } from '../../errors/error-handler.js';
+import { BadRequestError, NotFoundError } from '../../errors/error-handler.js';
 import { toDateString } from '../../utils/format-date.js';
 
 class StripeService {
@@ -64,7 +64,7 @@ class StripeService {
     const customer = await this.exsitingCustomer(email);
 
     if (!customer) {
-      throw new BadRequestError(`No customer found with email:,${email}`);
+      throw new NotFoundError(`No customer found with email:,${email}`);
     }
 
     const sessions = await this.stripe.checkout.sessions.list({

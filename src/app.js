@@ -5,7 +5,6 @@ import cors from 'cors';
 import compression from 'compression';
 import { config } from './config.js';
 import { databaseConnection } from './setupDatabase.js';
-//import rateLimit from 'express-rate-limit';
 
 import paymentRoutes from './routes/payment.routes.js';
 import { CustomError } from './errors/error-handler.js';
@@ -46,7 +45,6 @@ app.use((error, _req, res, next) => {
 
   next();
 });
-
 
 app.listen(config.SERVER_PORT, () => {
   databaseConnection();

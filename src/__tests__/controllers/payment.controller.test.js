@@ -16,7 +16,7 @@ app.use(json());
 app.post('/api/v1/payments', makePayment);
 app.get('/api/v1/payments/:id', getTransaction);
 
-// eslint-disable-next-line no-unused-vars
+ 
 app.use((err, _req, res, next) => {
   if (err instanceof BadRequestError || err instanceof ValidationError) {
      res.status(err.statusCode).send(err.serializeErrors());
@@ -55,7 +55,7 @@ describe('POST /api/v1/payments', () => {
       });
 
     expect(res.statusCode).toBe(200);
-    expect(res.body).toHaveProperty('url', 'https://checkout.stripe.com/session/abc123');
+    expect(res.body.data).toHaveProperty('url', 'https://checkout.stripe.com/session/abc123');
 
     expect(stripeServiceModule.stripeService.createCheckoutSession).toHaveBeenCalledWith(
       'Jane Doe',

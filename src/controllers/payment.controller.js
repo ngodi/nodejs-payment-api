@@ -4,7 +4,7 @@ import { stripeService } from '../services/stripe/stripe.js';
 import { validationResult } from 'express-validator';
 import { ValidationError } from '../errors/validation-error.js';
 import { userService } from '../services/db/user.service.js';
-import { createPaymentTransaction, getPaymentTransaction, getPaymentTransactions } from '../services/db/payment.service.js';
+import { createPaymentTransaction, getPaymentTransaction, getPaymentTransactions, updatePaymentTransaction } from '../services/db/payment.service.js';
 
 export const makePayment = async (req, res) => {
   const errors = validationResult(req);
@@ -22,7 +22,7 @@ export const makePayment = async (req, res) => {
 
     return res
       .status(HTTP_STATUS.OK)
-      .json({ message: 'Payment session created successfully', url });
+      .json({ message: 'Payment session created successfully', status: 'success', data: {url, sessionId, customerId, provider} });
   } catch (error) {
     throw new BadRequestError(`${error.message}`);
   }
@@ -32,6 +32,10 @@ export const getStripeTransaction = async (req, res) => {
   try {
     const { transactionId } = req.params;
     const transaction = await stripeService.getCheckoutSession(transactionId);
+    
+    if (transaction && (transaction.status === 'completed' || transaction.status === 'failed')) {
+      await updatePaymentTransaction(transactionId, transaction.status);
+    }
 
     return res
       .status(HTTP_STATUS.OK)

@@ -1,4 +1,4 @@
-import { BadRequestError } from '../../errors/error-handler.js';
+import { BadRequestError, NotFoundError } from '../../errors/error-handler.js';
 import { PaymentModel } from '../../models/paymentModel.js';
 import { UserModel } from '../../models/userModel.js';
 
@@ -15,14 +15,18 @@ export const createPaymentTransaction = async (userId, amount, provider, session
 export const getPaymentTransaction = async (sessionId) => {
   try {
     const transaction = await PaymentModel.findOne({
-  where: { sessionId },
-  include: [
-    {
-      model: UserModel,
-      attributes: ['name', 'email'],
-    },
+    where: { sessionId },
+    include: [
+      {
+        model: UserModel,
+        attributes: ['name', 'email'],
+      },
   ],
 });
+
+if (!transaction) {
+    throw new NotFoundError('Transaction not found');
+  }
 
     return transaction.get({ plain: true });
   } catch (error) {
