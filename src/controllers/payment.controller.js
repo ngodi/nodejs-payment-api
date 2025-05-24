@@ -33,8 +33,12 @@ export const getStripeTransaction = async (req, res) => {
     const { transactionId } = req.params;
     const transaction = await stripeService.getCheckoutSession(transactionId);
     
-    if (transaction && (transaction.status === 'completed' || transaction.status === 'failed')) {
-      await updatePaymentTransaction(transactionId, transaction.status);
+    if (transaction && (transaction.status === 'complete')) {
+      await updatePaymentTransaction(transactionId, 'completed');
+    }
+
+    if (transaction && (transaction.status !== 'complete') && (transaction.status !== 'open')) {
+      await updatePaymentTransaction(transactionId, 'failed');
     }
 
     return res
